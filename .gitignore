@@ -1,1 +1,5 @@
 QABERT/
+data/
+res/
+mlruns/
+__pycache__/
