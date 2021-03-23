@@ -1,4 +1,16 @@
-# CONFIG VARS
-SPEED = 0b10000000
-EXPER = 0b01000000
-GPU = 0b00100000
+# CONFIGS
+
+class bcolors:
+    '''
+    class definition for colored text from blender code
+    '''
+
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKCYAN = '\033[96m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'

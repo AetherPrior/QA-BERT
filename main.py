@@ -11,10 +11,12 @@ This time, I use the Haystack libarary instead to create an Open-Domain QA syste
 - I have used a Dense-passage-retrieval System as a retriever for QA, and and existing BERT Models that function as document embedders and query embedders
 
 - We did *not* initially train the model at all, but I'm researching into ways to be able to train it on several similar datasets to improve the performance. 
-    - For example, there are ways to train the DPR using a medical QA dataset. I'm trying to find one that's more relevant to our field.
+    - For example, there are ways to train the [DPR](https://haystack.deepset.ai/docs/latest/tutorial9md) using [medical QA datasets](https://github.com/abachaa/Existing-Medical-QA-Datasets). 
+        
+    -I'm trying to find one that's more relevant to our field.
 
 - Colab is NOT the way to go IMO for any decent code, but I'm constrained by the lack of a GPU on my system for speed. 
-    - The initial code was written on colab, after which I've exported it
+    - The initial code was written in colab, after which I've exported it, and changed it
     - Python code can actually be run on colab by mounting it to the drive and calling it from colab
 
 
@@ -24,72 +26,9 @@ This time, I use the Haystack libarary instead to create an Open-Domain QA syste
 
 
 from QAmodel import QAmodel
-import argparse
-import os
-def path_dir(path):
-
-    if(os.path.isdir(path)):
-        return path
-    else:
-        raise "Not a directory"
-
-
-def get_parser():
-    '''
-    Helper function for argument parsing
-    Returns a parser
-    '''
-
-    parser = argparse.ArgumentParser(
-        description='A program to assist with question answering')
-
-    required = parser.add_argument_group('required args')
-
-    required.add_argument(
-        '--text-dir',
-        help='Path to textbook directory for searching',
-        type=path_dir,
-        action='store',
-        dest='base_dir',
-        required=True
-    )
-
-    parser.add_argument(
-        '--gpu',
-        help='Utilizes the GPU',
-        action='store_true',
-        dest='gpu'
-    )
-
-    parser.add_argument(
-        '--experimental',
-        help='Creates a model for experimental use',
-        action='store_true',
-        dest='experimental'
-    )
-
-    parser.add_argument(
-        '--speed',
-        help='Chooses a model to tradeoff accuracy for speed',
-        action='store_true',
-        dest='speed'
-    )
-
-    # generator tbd
-    parser.add_argument(
-        '--pipeline',
-        help='''
-              Accepts either 'retrieve' or 'read' (default = 'read')
-              Chooses between a document retriever or a reader+retriever.  
-              To see what to choose check: https://haystack.deepset.ai/docs/latest/tutorial1md and the following pages
-              
-              ''',
-        action='store',
-        dest='pipeline'
-    )
-    return parser
-
-
+from utils import *
+from haystack.utils import print_answers
+from config import *
 def main():
 
     parser = get_parser()
@@ -98,14 +37,18 @@ def main():
     model = QAmodel(base_dir=args.base_dir,
                     exp=args.experimental,
                     gpu=args.gpu,
-                    speed=args.speed)
+                    speed=args.speed,
+                    reader_dir=args.reader,
+                    retriever_dir=args.retriever,
+                    save=args.save)
 
     model.build_model()
 
     pipline = ''
-    '''
-    if(args.pipeline is not None and parser.pipeline not in ['read', 'retrieve']):
-        print("Invalid pipeline argument enter any of: read, retrieve")
+
+    if(args.pipeline is not None and args.pipeline not in ['read', 'retrieve']):
+        print(
+            f"{bcolors.FAIL}Invalid pipeline argument enter any of: read, retrieve {bcolors.ENDC}")
         return
     elif(args.pipeline is None):
         pipeline = 'default'
@@ -115,11 +58,14 @@ def main():
     model.add_pipeline(pipeline)
 
     while(True):
-        print("Query: ")
-        query = input()
-        prediction = model.execute_query(query)
+        print("Query [or quit]: ")
 
-    '''
+        query = input()
+        if(query.lower() == "quit"):
+            return
+
+        prediction = model.execute_query(query)
+        print_answers(prediction)
 
 
 if __name__ == '__main__':

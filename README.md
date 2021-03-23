@@ -1,7 +1,7 @@
 # QA-BERT
 
-A Question-Answering model based off of HuggingFace's transformer models, using the [haystack](!https://github.com/deepset-ai/haystack) library.  
-This is a rewrite and improvement upon the original code written using [cdqa](!https://github.com/cdqa-suite/cdQA), a now outdated library.
+A Question-Answering model based off of HuggingFace's transformer models, using the [haystack](https://github.com/deepset-ai/haystack) library.  
+This is a rewrite and improvement upon the original code written using [cdqa](https://github.com/cdqa-suite/cdQA), a now outdated library.
 
 # Setup
 
@@ -34,6 +34,6 @@ run `python main.py`
 
 # Contributing
 
-(tbd CONTRIBUTING.md)
+See [CONTRIBUTING.md](./CONTRIBUTING.md)
 
 Additionally, the docs for `haystack` are quite terse, and it appears to not be a well-known library. A lot of breaking changes happen over a very small time-frame, leaving many questions on their issue-tracker no longer valid. Recommend downloading the source code with the release that you're using to resolve most errors.

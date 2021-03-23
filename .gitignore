@@ -3,3 +3,4 @@ data/
 res/
 mlruns/
 __pycache__/
+models/
