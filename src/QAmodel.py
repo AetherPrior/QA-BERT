@@ -172,7 +172,7 @@ class QAmodel:
                     f"{bcolors.OKCYAN}No retriever directory specified, (re)starting model{bcolors.ENDC}")
             else:
                 print(
-                    f"{bcolors.WARNING}No such retriever directory: {self.retriever_dir}{bcolors.ENDC}"
+                    f"{bcolors.WARNING}No such retriever directory: {self.retriever_dir}, (re)starting model{bcolors.ENDC}"
                 )
             self._retriever = DensePassageRetriever(
                 document_store=self._doc_store,
@@ -198,7 +198,7 @@ class QAmodel:
                     f"{bcolors.OKCYAN}No reader directory specified, (re)starting model{bcolors.ENDC}")
             else:
                 print(
-                    f"{bcolors.WARNING}No such reader directory:{bcolors.ENDC}"
+                    f"{bcolors.WARNING}No such reader directory: {self.reader_dir}, (re)starting model{bcolors.ENDC}"
                 )
             if (self._speed):
                 # prefer speed over acc, people are impatient
@@ -211,16 +211,16 @@ class QAmodel:
 
         if(not self._exp and self._save):
 
-            self._retriever.save('models/retrievers/dpr/',
+            self._retriever.save('../models/retrievers/dpr/',
                                  query_encoder_dir='query_encoder/',
                                  passage_encoder_dir='passage_encoder/'
                                  )
 
-            tbstring = "models/documents/"+self.get_tb_string()
+            tbstring = "../models/documents/"+self.get_tb_string()
 
             # self._doc_store.save(tbstring) # Feature blocked till github issue is resolved for haystack
             reader = speed_reader if self._speed == True else non_fast
-            self._reader.save('models/readers/FARMreader/'+speed_reader)
+            self._reader.save('../models/readers/FARMreader/'+speed_reader)
 
         self._model = True
 

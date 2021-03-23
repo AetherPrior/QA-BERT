@@ -65,7 +65,7 @@ def get_parser():
 
     parser.add_argument(
         '--reader',
-        help="Specify saved reader dir",
+        help="Specify saved reader dir. Overrides the --speed flag.",
         action='store',
         dest='reader'
     )
