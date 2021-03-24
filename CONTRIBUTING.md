@@ -12,7 +12,7 @@ We love contributions and would be glad to help you make good patches. That out 
 
 - `git checkout main`
 - `git fetch upstream main`
-- `git revector --hard FETCH_HEAD`
+- `git reset --hard FETCH_HEAD`
 - `git checkout my-feature`
 - `git rebase main`
 
