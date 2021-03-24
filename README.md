@@ -11,7 +11,7 @@ This is a rewrite and improvement upon the original code written using [cdqa](ht
 
   - For example, there are ways to [train the DPR](https://haystack.deepset.ai/docs/latest/tutorial9md) using [medical QA datasets](https://github.com/abachaa/Existing-Medical-QA-Datasets).
 
-  -I'm trying to find one that's more relevant to our field.
+  - I'm trying to find one that's more relevant to our field.
 
 - Colab is NOT the way to go IMO for any decent code, but I'm constrained by the lack of a GPU on my system for speed.
   - The initial code was written in colab, after which I've exported it, and changed it
